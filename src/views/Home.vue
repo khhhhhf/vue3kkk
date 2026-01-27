@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { RouterView, RouterLink } from 'vue-router'
-
-import HomeView from '@/views/HomeView.vue';
-import AboutView from '@/views/AboutView.vue'
 </script>
 
 <template>
@@ -11,8 +8,8 @@ import AboutView from '@/views/AboutView.vue'
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
-      <RouterLink to="/HomeView">Home</RouterLink> Home 是外层路由
-      <RouterLink to="/AboutView">About</RouterLink> About 是 Home 的子路由
+      <RouterLink to="/HomeView">Home</RouterLink> 是外层路由
+      <RouterLink to="/AboutView">About</RouterLink> 是 Home 的子路由
     </div>
   </header>
 

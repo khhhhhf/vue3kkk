@@ -1,27 +1,26 @@
 <template>
-    <div class="uploader">
-      <h2>分片上传 + 并发 + 断点续传（Vue）</h2>
-  
-      <input type="file" @change="onFileChange" />
-  
-      <button :disabled="uploading" @click="startUpload">
-        {{ uploading ? '上传中...' : '开始上传' }}
-      </button>
-  
-      <div class="progress-bar">
-        <div class="progress-inner" :style="{ width: progress + '%' }"></div>
-      </div>
-  
-      <p>进度：{{ progress }}%</p>
+  <div class="uploader">
+    <h2>分片上传 + 并发 + 断点续传（Vue）</h2>
+
+    <input type="file" @change="onFileChange" />
+
+    <button :disabled="uploading" @click="startUpload">
+      {{ uploading ? '上传中...' : '开始上传' }}
+    </button>
+
+    <div class="progress-bar">
+      <div class="progress-inner" :style="{ width: progress + '%' }"></div>
     </div>
-  </template>
-  
+
+    <p class="progress-text">进度：{{ progress }}%</p>
+  </div>
+</template>
   <script setup>
   import { ref } from 'vue'
   
   /* ================== 配置 ================== */
   const CHUNK_SIZE = 1024 * 1024 // 1MB
-  const MAX_CONCURRENT = 3       // 并发数
+  const MAX_CONCURRENT = 10       // 并发数
   const MAX_RETRY = 3            // 单分片最大重试次数
   
   /* ================== 状态 ================== */
@@ -118,44 +117,89 @@
   
     await uploadWithConcurrency(chunks, fileId)
   
-    uploading.value = false
-    alert('上传完成 🎉')
+    setTimeout(() => {
+      alert('上传完成 🎉')
+      uploading.value = false
+      progress.value = 0
+    }, 10)
   }
   </script>
   
   <style scoped>
   .uploader {
-    width: 420px;
-    padding: 20px;
-    background: #fafafa;
+    max-width: 480px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
     border-radius: 8px;
-  }
-  
-  input,
-  button {
-    display: block;
     margin: 12px 0;
+    background: #f1f1f1;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  input[type="file"]:hover {
+    border-color: #42b883;
   }
   
   button {
-    padding: 6px 14px;
+    padding: 12px 24px;
+    border: none;
+    background: #42b883;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  button:disabled {
+    background-color: #d8d8d8;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #36a07b;
+    transform: translateY(-2px);
   }
   
   .progress-bar {
     width: 100%;
-    height: 20px;
+    height: 12px;
     background: #eee;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 20px;
   }
   
   .progress-inner {
     height: 100%;
-    width: 0%;
     background: #42b883;
     transition: width 0.3s ease;
   }
-  </style>
   
+  .progress-text {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  </style>

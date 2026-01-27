@@ -8,6 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home,
+      redirect: 'homeView',
       children: [
         {
           path: 'homeview',  // /about
