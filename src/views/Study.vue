@@ -49,7 +49,7 @@
   function uploadChunk(chunk, total) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (Math.random() < 0.85) {
+        if (Math.random() < 0.1) {
           console.log(`分片 ${chunk.index + 1}/${total} 上传成功`)
           resolve()
         } else {
@@ -95,7 +95,14 @@
     }
   
     const workers = Array.from({ length: MAX_CONCURRENT }, worker)
-    await Promise.all(workers)
+    try {
+      await Promise.all(workers)
+    } catch (err) {
+      console.error(err.message)
+      uploading.value = false
+      progress.value = 0
+      alert('上传失败 💔')
+    }
   }
   
   /* ================== 事件 ================== */
