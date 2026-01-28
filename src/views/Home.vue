@@ -8,8 +8,8 @@ import { RouterView, RouterLink } from 'vue-router'
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
-      <RouterLink to="/HomeView">Home</RouterLink> khhhh是外层路由
-      <RouterLink to="/AboutView">About</RouterLink> 是 Home 的子路由
+      <RouterLink to="/">Home</RouterLink> khh是外层路由
+      <RouterLink to="/aboutview">About</RouterLink> 是 Home 的子路由
     </div>
   </header>
 

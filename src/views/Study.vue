@@ -49,7 +49,7 @@
   function uploadChunk(chunk, total) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.9) {
           console.log(`分片 ${chunk.index + 1}/${total} 上传成功`)
           resolve()
         } else {
