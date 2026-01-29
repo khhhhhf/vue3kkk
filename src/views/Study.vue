@@ -20,7 +20,7 @@
   
   /* ================== 配置 ================== */
   const CHUNK_SIZE = 1024 * 1024 // 1MB
-  const MAX_CONCURRENT = 12 // 并发数
+  const MAX_CONCURRENT = 2 // 并发数
   const MAX_RETRY = 3            // 单分片最大重试次数
   
   /* ================== 状态 ================== */
